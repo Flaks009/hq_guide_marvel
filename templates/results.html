@@ -17,9 +17,11 @@
         
     </div>
     <div class="container mb-5">
-        <div class="row justify-content-center"><img class="rounded" src="{{search_list[0]}}"></div>
-        {%for x in search_list[1]%}
-        <div class="row justify-content-center"><img class="rounded" src="{{x}}"></div>
+        <h1>{{name}}</h1>
+        <div class="row justify-content-center"><img class="rounded" src="{{thumbnail}}"></div>
+        {%for x in results%}
+        <h3>{{x[1]}}</h3>
+        <div class="row justify-content-center mb-3"><img class="rounded" src="{{x[0]}}"></div>
         {%endfor%}
     </div>
 

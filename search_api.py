@@ -13,7 +13,7 @@ def search_character():
     char = request.form['character_name']
     search_list = search(char)
 
-    return render_template('results.html', search_list = search_list)
+    return render_template('results.html', results = search_list[2], name = search_list[0], thumbnail = search_list[1])
 
 @marvel_app.route('/marvel/random', methods = ['GET'])
 def random_character():

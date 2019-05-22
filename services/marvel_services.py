@@ -10,8 +10,10 @@ def search(char ,ts = ts, api_key = api_key, hash1 = hash1):
     return_list = []
 
     if int(response['data']['count']) > 0:
+        name = response['data']['results'][0]['name']
         thumbnail = thumb(ts, api_key, hash1, char)
         hq = response['data']['results'][0]['comics']['items']
+        return_list.append(name)
         return_list.append(thumbnail)
         for item in hq:
             id_hq = item['resourceURI'][43:48]
@@ -37,12 +39,16 @@ def thumb(ts, api_key, hash1, char):
 def cover(id_hq ,ts, api_key, hash1):
     url = "http://gateway.marvel.com/v1/public/comics/{}?ts={}&apikey={}&hash={}".format(id_hq, ts, api_key, hash1)
     response = requests.get(url).json()
+    cover_info = []
     image = response['data']['results'][0]['thumbnail']['path'] + "/detail.jpg"
+    cover_title = response['data']['results'][0]['title']
     #response_img = requests.get(image)
     #image_id = "{}".format(id_hq)
     #cover_img = open(image_id + ".jpg", "wb")
     #cover_img.write(response_img.content)
     #cover_img.close()
-    return image    
+    cover_info.append(image)
+    cover_info.append(cover_title)
+    return cover_info
 
 #Personagem --> Edicoes e saga em que aparece --> Imagem das capas
