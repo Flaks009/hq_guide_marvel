@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from services.marvel_services import search
+from infra.db import cria_db
 
 marvel_app = Flask(__name__)
 
@@ -19,6 +20,7 @@ def search_character():
 def random_character():
     pass
 
+cria_db()
 
 if __name__ == "__main__":
     marvel_app.run()

@@ -1,0 +1,20 @@
+body {
+  background: url('/static/img/Marvel_comics.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.main {
+    position: relative;
+  }
+  
+.search {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  
+    margin: -70px 0 0 -170px;
+}

@@ -6,24 +6,24 @@ hash1 = key(ts, api_key, pk)
 def search(char ,ts = ts, api_key = api_key, hash1 = hash1):
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&nameStartsWith={}".format(ts, api_key, hash1, char)
     response = requests.get(url).json()
-    list_cover = []
     return_list = []
 
     if int(response['data']['count']) > 0:
         name = response['data']['results'][0]['name']
+        id_character = response['data']['results'][0]['id']
         thumbnail = thumb(ts, api_key, hash1, char)
-        hq = response['data']['results'][0]['comics']['items']
+        comics_dict = comics(id_character, ts, api_key, hash1)
         return_list.append(name)
         return_list.append(thumbnail)
-        for item in hq:
-            id_hq = item['resourceURI'][43:48]
-            list_cover.append(cover(id_hq, ts, api_key, hash1))
+        return_list.append(comics_dict)
+
+        return return_list
+
     else:
         return None
+    
 
-    return_list.append(list_cover)    
-
-    return return_list
+    
 
 def thumb(ts, api_key, hash1, char):
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&nameStartsWith={}".format(ts, api_key, hash1, char)
@@ -50,5 +50,19 @@ def cover(id_hq ,ts, api_key, hash1):
     cover_info.append(image)
     cover_info.append(cover_title)
     return cover_info
+
+def comics(id_character ,ts, api_key, hash1):
+    url = "http://gateway.marvel.com/v1/public/characters/{}/comics?ts={}&apikey={}&hash={}&limit=3".format(id_character, ts, api_key, hash1)
+    response = requests.get(url).json()
+    comics_ed = response['data']['results']
+    comics_dict = {}
+
+    for comic in comics_ed:
+        comics_dict[comic["id"]] = {} 
+        comics_dict[comic["id"]] = {"id":comic["id"], "title":comic["title"], "thumbnail": comic["thumbnail"]}
+        comics_dict[comic["id"]]["thumbnail"]["path"] += "/detail.jpg"
+        
+    return comics_dict
+
 
 #Personagem --> Edicoes e saga em que aparece --> Imagem das capas
