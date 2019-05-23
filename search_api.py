@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from services.marvel_services import search, search_DB, create_hyperlinks, randomize
 from infra.db import cria_db
 import random
+import os
 
 
 marvel_app = Flask(__name__)
@@ -48,4 +49,5 @@ def random_character():
 cria_db()
 
 if __name__ == "__main__":
-    marvel_app.run()
+    port = int(os.environ.get("PORT", 5000))
+    marvel_app.run(host='0.0.0.0', port=port)
