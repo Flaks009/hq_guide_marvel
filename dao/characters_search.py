@@ -5,6 +5,7 @@ sql_search = "SELECT COUNT(*) FROM Characters"
 sql_compare = "SELECT name FROM Characters WHERE INSTR(UPPER(name), UPPER(?)) >= 1"
 sql_insert = "INSERT INTO Characters (name) VALUES (?)"
 sql_delete = "DELETE FROM Characters"
+sql_random = "SELECT name FROM Characters WHERE id = (?)"
 
 
 def totalCharacters():
@@ -26,6 +27,7 @@ def totalCharacters():
         return 0
 
 def insertCharacters(characterName):
+
     connection = sqlite3.connect("marvel.db")
     cursor = connection.cursor()
     cursor.execute(sql_insert, (characterName, ))
@@ -34,6 +36,7 @@ def insertCharacters(characterName):
     connection.close()
 
 def searchCharacters(stringToCompare):
+
     connection = sqlite3.connect("marvel.db")
     cursor = connection.cursor()
     cursor.execute(sql_compare, (stringToCompare, ))
@@ -49,9 +52,22 @@ def searchCharacters(stringToCompare):
     return nameCharacters
 
 def truncateCharacters():
+
     connection = sqlite3.connect("marvel.db")
     cursor = connection.cursor()
     cursor.execute(sql_delete)
     connection.commit()
     cursor.close()
     connection.close()
+
+def randomCharacters(randomId):
+    
+    connection = sqlite3.connect("marvel.db")
+    cursor = connection.cursor()
+    cursor.execute(sql_random, (randomId, ))
+    randomCharacter = cursor.fetchone()
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return randomCharacter
