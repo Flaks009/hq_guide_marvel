@@ -1,13 +1,15 @@
 from infra.login_api import *
+from dao.characters_search import searchCharacters
 import requests
 
 hash1 = key(ts, api_key, pk)
 
 def search(char ,ts = ts, api_key = api_key, hash1 = hash1):
-    url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&nameStartsWith={}".format(ts, api_key, hash1, char)
+
+    url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&name={}".format(ts, api_key, hash1, char)
     response = requests.get(url).json()
     return_list = []
-
+    print(response)
     if int(response['data']['count']) > 0:
         name = response['data']['results'][0]['name']
         id_character = response['data']['results'][0]['id']
@@ -21,7 +23,20 @@ def search(char ,ts = ts, api_key = api_key, hash1 = hash1):
 
     else:
         return None
+
+def search_DB(chars):
+
+    chars = searchCharacters(chars)
+    return chars
+
+def create_hyperlinks(chars):
+
+    hyperlinks = []
+    for char in chars:
+        hyperlinks.append(char[0])
     
+    return hyperlinks
+
 
     
 

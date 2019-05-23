@@ -1,7 +1,5 @@
 import sqlite3
-from infra.login_api import *
 from wrap_connection import transact
-from infra.characters import characters_list
 
 create_sqls = """
 CREATE TABLE IF NOT EXISTS Characters
@@ -18,5 +16,3 @@ def con():
 def cria_db():
     cursor.execute(create_sqls)
     connection.commit()
-
-characters_list(ts, api_key, hash_key)
