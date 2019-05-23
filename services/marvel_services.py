@@ -4,30 +4,37 @@ import requests
 
 hash1 = key(ts, api_key, pk)
 
-def search(char ,ts = ts, api_key = api_key, hash1 = hash1):
-
+def search(char , page = 0, ts = ts, api_key = api_key, hash1 = hash1):
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&name={}".format(ts, api_key, hash1, char)
     response = requests.get(url).json()
     return_list = []
-    print(response)
     if int(response['data']['count']) > 0:
         name = response['data']['results'][0]['name']
         id_character = response['data']['results'][0]['id']
+        pages = (int(response['data']['results'][0]['comics']['available']) // 20)
         thumbnail = thumb(ts, api_key, hash1, char)
-        comics_dict = comics(id_character, ts, api_key, hash1)
+        page = page * 20
+        comics_dict = comics(id_character, ts, api_key, hash1, offset = page)
         return_list.append(name)
         return_list.append(thumbnail)
         return_list.append(comics_dict)
+        return_list.append(pages)
 
         return return_list
 
     else:
         return None
 
-def search_DB(chars):
-
-    chars = searchCharacters(chars)
-    return chars
+def search_DB(chars_form):
+    chars = searchCharacters(chars_form)
+    if len(chars) == 1:
+        return chars
+    else:
+        for char in chars:
+            if char[0] == chars_form:
+                chars = [char]
+                return chars
+        return chars
 
 def create_hyperlinks(chars):
 
@@ -66,8 +73,8 @@ def cover(id_hq ,ts, api_key, hash1):
     cover_info.append(cover_title)
     return cover_info
 
-def comics(id_character ,ts, api_key, hash1):
-    url = "http://gateway.marvel.com/v1/public/characters/{}/comics?ts={}&apikey={}&hash={}&limit=3".format(id_character, ts, api_key, hash1)
+def comics(id_character ,ts, api_key, hash1, offset = 0):
+    url = "http://gateway.marvel.com/v1/public/characters/{}/comics?ts={}&apikey={}&hash={}&offset={}".format(id_character, ts, api_key, hash1, offset)
     response = requests.get(url).json()
     comics_ed = response['data']['results']
     comics_dict = {}

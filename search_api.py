@@ -13,12 +13,13 @@ def home():
 @marvel_app.route('/marvel', methods = ['POST'])
 def search_character():
 
-    char = request.form['character_name']
-    char = search_DB(char)
+    char_form = request.form['character_name']
+    offset_form = request.form['offset']
+    char = search_DB(char_form)
 
     if len(char) == 1:
-        search_list = search(char[0][0])
-        return render_template('results.html', results = search_list[2], name = search_list[0], thumbnail = search_list[1])
+        search_list = search(char[0][0], int(offset_form))
+        return render_template('results.html', results = search_list[2], name = search_list[0], thumbnail = search_list[1] , pages = search_list[3])
 
     else:
         hyperlinks = create_hyperlinks(char)

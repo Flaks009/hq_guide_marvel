@@ -15,13 +15,21 @@
             <form action="/marvel", method="POST"> 
                 <div class="form-inline form-group">
                     <input class="form-control col-8" type="text" id="character_name", name="character_name" autocomplete="off /">
-                    <button class="btn btn-primary ml-3" type="submit">Search</button>
+                    <input type="hidden" id="offset", name="offset" value="{{0}}"> 
+                    <button class="btn btn-dark ml-3" type="submit">Search</button>
                 </div>
             </form>
             {% if hyperlinks|length > 0 %}
+            <p class="lead text-primary font-weight-bold"><u>Did you mean?</u></p>
+            <div class="container">
             {% for h in hyperlinks %}
-            <p>{{h}}</p>
+                <form class="row justify-content-center" action="/marvel", method="POST">
+                    <input type="hidden" id="character_name", name="character_name" value="{{h}}">
+                    <input type="hidden" id="offset", name="offset" value= "{{0}}" > 
+                    <button class="btn btn-dark mb-3" type="submit">{{h}}</button>
+                </form>
             {% endfor %}
+            </div>
             {% endif %}
         </main>        
 
