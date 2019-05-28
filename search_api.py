@@ -22,6 +22,10 @@ def search_character():
         search_list = search(char[0][0], int(offset_form))
         return render_template('results.html', results = search_list[2], name = search_list[0], thumbnail = search_list[1] , pages = search_list[3])
 
+    elif len(char) == 0:
+        hyperlinks = 0
+        return render_template('search.html', hyperlinks = hyperlinks)
+
     else:
         hyperlinks = create_hyperlinks(char)
         return render_template('search.html', hyperlinks = hyperlinks)

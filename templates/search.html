@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Marvel - API</title>
 </head>
 
 <body>
     <main>
         <div class="search">
+            <img src="/static/img/logo.png" style="width: 400px; height: 200px">
             <div class="row">
                 <div>
                     <form action="/marvel" , method="POST">
@@ -34,9 +36,12 @@
                     </form>
                 </div>
             </div>
-            {% if hyperlinks|length > 0 %}
+            {%if hyperlinks == 0 %}
+            <p class="lead">No results</p>
+            {% elif hyperlinks|length > 0 %}
             <div class="container">
-                <p class="bg-danger display-4 text-light text-center font-weight-bold rounded"><u>Suggestions:</u></p>
+                <p class="bg-danger display-4 text-light text-center font-weight-bold rounded"><u>Suggestions:</u>
+                </p>
                 <div class="container">
                     {% for h in hyperlinks %}
                     <form class="row justify-content-center" action="/marvel" , method="POST">
