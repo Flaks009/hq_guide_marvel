@@ -9,10 +9,13 @@ marvel_app = Flask(__name__)
 
 @marvel_app.route('/', methods = ['GET'])
 def home():
-    
     return render_template('home.html')
 
-@marvel_app.route('/marvel', methods = ['POST', 'GET'])
+@marvel_app.route('/marvel', methods = ['GET'])
+def search_page():
+    return render_template('search.html')
+
+@marvel_app.route('/marvel', methods = ['POST'])
 def search_character():
 
     char_form = request.form['character_name']
