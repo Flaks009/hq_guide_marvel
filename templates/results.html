@@ -14,7 +14,7 @@
 
 <body>
 
-    <div class="container-fluid ml-5 mt-5" style="padding-left:0">
+    <div class="container ml-5 mt-5" style="padding-left:0">
 
         <form class="float-left" action="/marvel" method="GET">
             <input type="hidden">
@@ -37,15 +37,18 @@
         {%endfor%}
     </div>
 
-    {% for page in range(pages) %}
+
 
     <form class="form-inline justify-content-center" action="/marvel" , method="POST">
         <input type="hidden" id="character_name" , name="character_name" value="{{name}}">
-        <input type="hidden" id="offset" , name="offset" value="{{page + 1}}">
-        <button class="btn btn-dark mb-3" type="submit">{{page + 1}}</button>
+        {% for page in range(pages) %}
+        <div class="form-group mx-1">
+            <input type="hidden" id="offset" , name="offset" value="{{page + 1}}">
+            <button class="btn btn-dark mb-3" type="submit">{{page + 1}}</button>
+        </div>
+        {% endfor %}
     </form>
 
-    {% endfor %}
     <a href="#" class="o-scroll-up" title="back to top">
         <span class="o-scroll-up-text hidden-sm-down">Back to top</span>
         <span class="o-scroll-up-icon" aria-hidden="true"></span>

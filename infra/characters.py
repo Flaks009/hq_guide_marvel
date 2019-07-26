@@ -25,6 +25,7 @@ def characters_list(ts = ts, api_key = api_key, hash_key = hash_key, offset = 0,
             offset += 20
             url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&limit=20&offset={}".format(ts, api_key, hash_key, offset)
             request = requests.get(url).json()
+            print(offset)
     
     else:
         print("DB Updated")
