@@ -7,9 +7,9 @@ import os
 
 marvel_app = Flask(__name__)
 
-@marvel_app.route('/marvel', methods = ['GET'])
+@marvel_app.route('/', methods = ['GET'])
 def home():
-    return render_template('search.html')
+    return render_template('home.html')
 
 @marvel_app.route('/marvel', methods = ['POST'])
 def search_character():
@@ -47,7 +47,6 @@ def random_character():
     else:
         hyperlinks = create_hyperlinks(char)
         return render_template('search.html', hyperlinks = hyperlinks)
-
 
 
 cria_db()
