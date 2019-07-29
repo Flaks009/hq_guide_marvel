@@ -8,7 +8,6 @@ import os
 marvel_app = Flask(__name__)
 
 
-
 @marvel_app.route('/', methods = ['GET'])
 def search_page():
     return render_template('search.html')
