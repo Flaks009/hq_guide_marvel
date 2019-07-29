@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Marvel - API</title>
+</head>
+
+<body>
+    <main>
+        
+        <div class="search">
+            <img src="/static/img/logo.png" class="logo d-none d-md-block">
+            <div class="row">
+                <div>
+                    <form action="/marvel" , method="POST">
+                        <div class="form-inline form-group">
+                            <input class="form-control col-8" type="text" id="character_name" , name="character_name" ,
+                                placeholder="Search Your Character..." , autocomplete="off" />
+                            <input type="hidden" id="offset" , name="offset" value="{{0}}">
+                            <button class="btn btn-danger ml-3" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <form action="/marvel/random" , method="POST">
+                        <div class="form-group">
+                            <input type="hidden" id="offset" , name="offset" value="{{0}}">
+                            <button class="btn btn-danger" type="submit">Surprise Me!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {%if hyperlinks == 0 %}
+            <p class="lead">No results</p>
+            {% elif hyperlinks|length > 0 %}
+            <div class="container">
+                <p class="bg-danger display-4 text-light text-center font-weight-bold rounded"><u>Suggestions:</u>
+                </p>
+                <div class="container">
+                    {% for h in hyperlinks %}
+                    <form class="row justify-content-center" action="/marvel" , method="POST">
+                        <input type="hidden" id="character_name" , name="character_name" value="{{h}}">
+                        <input type="hidden" id="offset" , name="offset" value="{{0}}">
+                        <button class="btn btn-danger mb-3" type="submit">{{h}}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+                <a href="#" class="o-scroll-up" title="back to top">
+                    <span class="o-scroll-up-text hidden-sm-down text-white btn btn-danger">Back to top</span>
+                    <span class="o-scroll-up-icon" aria-hidden="true"></span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
