@@ -7,15 +7,13 @@ import os
 
 marvel_app = Flask(__name__)
 
-@marvel_app.route('/', methods = ['GET'])
-def home():
-    return render_template('home.html')
 
-@marvel_app.route('/marvel', methods = ['GET'])
+
+@marvel_app.route('/', methods = ['GET'])
 def search_page():
     return render_template('search.html')
 
-@marvel_app.route('/marvel', methods = ['POST'])
+@marvel_app.route('/', methods = ['POST'])
 def search_character():
 
     char_form = request.form['character_name']
@@ -36,7 +34,7 @@ def search_character():
 
 
 
-@marvel_app.route('/marvel/random', methods = ['POST'])
+@marvel_app.route('/random', methods = ['POST'])
 def random_character():
 
     randomId = random.randint(1, 1491)
