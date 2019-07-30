@@ -45,7 +45,7 @@
                 </p>
                 <div class="container">
                     {% for h in hyperlinks %}
-                    <form class="row justify-content-center" action="/marvel" , method="POST">
+                    <form class="row justify-content-center" action="/" , method="POST">
                         <input type="hidden" id="character_name" , name="character_name" value="{{h}}">
                         <input type="hidden" id="offset" , name="offset" value="{{0}}">
                         <button class="btn btn-danger mb-3" type="submit"><b>{{h}}</b></button>
