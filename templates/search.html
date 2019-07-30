@@ -16,15 +16,15 @@
     <main>
         
         <div class="search">
-            <img src="/static/img/logo.png" class="logo d-none d-md-block">
+            <div class="row"><img src="/static/img/logo.png" class="logo d-none d-md-block"></div>
             <div class="row">
-                <div>
+                <div class="mr-2">
                     <form action="/" , method="POST">
                         <div class="form-inline form-group">
                             <input class="form-control col-8" type="text" id="character_name" , name="character_name" ,
                                 placeholder="Search Your Character..." , autocomplete="off" />
                             <input type="hidden" id="offset" , name="offset" value="{{0}}">
-                            <button class="btn btn-danger ml-3" type="submit">Search</button>
+                            <button class="btn btn-danger ml-3" type="submit"><b>Search</b></button>
                         </div>
                     </form>
                 </div>
@@ -32,7 +32,7 @@
                     <form action="/random" , method="POST">
                         <div class="form-group">
                             <input type="hidden" id="offset" , name="offset" value="{{0}}">
-                            <button class="btn btn-danger" type="submit">Surprise Me!</button>
+                            <button class="btn btn-danger" type="submit"><b>Surprise Me!</b></button>
                         </div>
                     </form>
                 </div>
@@ -41,14 +41,14 @@
             <p class="lead">No results</p>
             {% elif hyperlinks|length > 0 %}
             <div class="container">
-                <p class="bg-danger display-4 text-light text-center font-weight-bold rounded"><u>Suggestions:</u>
+                <p class="bg-danger display-4 text-light text-center font-weight-bold rounded">Suggestions:
                 </p>
                 <div class="container">
                     {% for h in hyperlinks %}
                     <form class="row justify-content-center" action="/marvel" , method="POST">
                         <input type="hidden" id="character_name" , name="character_name" value="{{h}}">
                         <input type="hidden" id="offset" , name="offset" value="{{0}}">
-                        <button class="btn btn-danger mb-3" type="submit">{{h}}</button>
+                        <button class="btn btn-danger mb-3" type="submit"><b>{{h}}</b></button>
                     </form>
                     {% endfor %}
                 </div>
