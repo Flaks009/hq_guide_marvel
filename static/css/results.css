@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Marvel&display=swap');
-
+@font-face{
+    font-family: 'Marvel', sans-serif;
+    src: 'https://fonts.googleapis.com/css?family=Marvel&display=swap'
+  }
 body
 {
     background-color: #f0131e;
