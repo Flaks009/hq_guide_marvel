@@ -1,4 +1,4 @@
-from login_api import *
+from infra.login_api import ts, api_key, pk, key
 import requests
 
 hash1 = key(ts, api_key, pk)

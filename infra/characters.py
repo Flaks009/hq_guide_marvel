@@ -1,8 +1,10 @@
 import requests
-from infra.login_api import ts, api_key, hash_key
+from infra.login_api import ts, api_key, pk, key
 from dao.characters_search import totalCharacters, insertCharacters, truncateCharacters, searchCharacters
 
-def characters_list(ts = ts, api_key = api_key, hash_key = hash_key, offset = 0, chars = 1):
+hash1 = key(ts, api_key, pk)
+
+def characters_list(ts = ts, api_key = api_key, hash_key = hash1, offset = 0, chars = 1):
 
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&limit=20&offset={}".format(ts, api_key, hash_key, offset)
     request = requests.get(url).json()

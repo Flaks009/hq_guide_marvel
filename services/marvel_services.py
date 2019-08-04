@@ -1,8 +1,10 @@
-from infra.login_api import ts, api_key, hash_key
+from infra.login_api import ts, api_key, pk, key
 from dao.characters_search import searchCharacters, randomCharacters
 import requests
 
-def search(char , page = 0, ts = ts, api_key = api_key, hash_key = hash_key):
+hash1 = key(ts, api_key, pk)
+
+def search(char , page = 0, ts = ts, api_key = api_key, hash_key = hash1):
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&name={}".format(ts, api_key, hash_key, char)
     response = requests.get(url).json()
     return_list = []
@@ -50,14 +52,14 @@ def randomize(char_id):
 
     
 
-def thumb(char, ts = ts, api_key = api_key, hash_key = hash_key):
+def thumb(char, ts = ts, api_key = api_key, hash_key = hash1):
     url = "http://gateway.marvel.com/v1/public/characters?ts={}&apikey={}&hash={}&nameStartsWith={}".format(ts, api_key, hash_key, char)
     response = requests.get(url).json()
     image = response['data']['results'][0]['thumbnail']['path'] + "/detail.jpg"
     return image
 
 
-def comics(id_character ,ts = ts, api_key = api_key, hash_key = hash_key, offset = 0):
+def comics(id_character ,ts = ts, api_key = api_key, hash_key = hash1, offset = 0):
     url = "http://gateway.marvel.com/v1/public/characters/{}/comics?ts={}&apikey={}&hash={}&offset={}".format(id_character, ts, api_key, hash_key, offset)
     response = requests.get(url).json()
     comics_ed = response['data']['results']
